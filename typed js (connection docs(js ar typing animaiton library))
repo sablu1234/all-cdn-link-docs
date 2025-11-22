@@ -21,3 +21,17 @@ For use directly in the browser via <script> tag:(git hub link a gele onk syle p
     });
   </script>
 </body>
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//wordpress a use korte chaile ata use koro elementor code a footer a
+
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  new Typed("#element", {
+    strings: ['Reawakening the ritual of printed photography', '&amp; Reawakening the ritual of printed photography'],
+    typeSpeed: 50
+  });
+});
+</script>
