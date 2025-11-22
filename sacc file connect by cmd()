@@ -1,0 +1,3 @@
+//sass connect korte (sass --watch) ata diye "sass" file pate korte hobe next ":" diye "css" file diye enter dilei connect hobe
+
+sass --watch "C:\Users\DCL\Local Sites\my-theme\app\public\wp-content\themes\sbtech\assets\sass\style.scss":"C:\Users\DCL\Local Sites\my-theme\app\public\wp-content\themes\sbtech\assets\sass\style.css"
