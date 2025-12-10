@@ -1,0 +1,160 @@
+#use in html widget 
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+/* UL full width */
+ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each row */
+.container {
+  width: 100%;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e4e4e4;
+  position: relative;
+}
+
+/* The hover-follow image */
+.container img.swipeimage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+/* RESPONSIVE — tablet */
+@media (max-width: 1024px) {
+  .container img.swipeimage {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+/* RESPONSIVE — mobile */
+@media (max-width: 767px) {
+  .container {
+    padding: 1rem;
+  }
+
+  /* Smaller floating image */
+  .container img.swipeimage {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Text size smaller */
+  .container h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 480px) {
+  .container img.swipeimage {
+    width: 150px;
+    height: 150px;
+  }
+
+  .container h3 {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+<ul role="list">
+  <li class="container">
+    <img class="swipeimage" src="https://assets.codepen.io/16327/portrait-image-8.jpg">
+    <div class="text"><h3>restart reverse scrub pin markers overwrite modifiers</h3></div>
+  </li>
+
+  <li class="container">
+    <img class="swipeimage" src="https://assets.codepen.io/16327/portrait-image-3.jpg">
+    <div class="text"><h3>toggleActions start end once refresh from to</h3></div>
+  </li>
+
+  <li class="container">
+    <img class="swipeimage" src="https://assets.codepen.io/16327/portrait-image-1.jpg">
+    <div class="text"><h3>ScrollSmoother Flip Draggable SplitText InertiaPlugin</h3></div>
+  </li>
+
+  <li class="container">
+    <img class="swipeimage" src="https://assets.codepen.io/16327/portrait-image-14.jpg">
+    <div class="text"><h3>onComplete onUpdate quickSetter quickTo utils.toArray.</h3></div>
+  </li>
+
+  <li class="container">
+    <img class="swipeimage" src="https://assets.codepen.io/16327/portrait-image-6.jpg">
+    <div class="text"><h3>Power2 Power3 Power4 Back Elastic Bounce Expo Sine</h3></div>
+  </li>
+</ul>
+
+
+<script>
+gsap.set(".container img.swipeimage", { yPercent: -50, xPercent: -50 });
+
+let firstEnter;
+
+gsap.utils.toArray(".container").forEach((el) => {
+  const image = el.querySelector("img.swipeimage"),
+    setX = gsap.quickTo(image, "x", { duration: 0.4, ease: "power3" }),
+    setY = gsap.quickTo(image, "y", { duration: 0.4, ease: "power3" }),
+
+    align = (e) => {
+      if (firstEnter) {
+        setX(e.clientX, e.clientX);
+        setY(e.clientY, e.clientY);
+        firstEnter = false;
+      } else {
+        setX(e.clientX);
+        setY(e.clientY);
+      }
+    },
+
+    startFollow = () => document.addEventListener("mousemove", align),
+    stopFollow = () => document.removeEventListener("mousemove", align),
+
+    fade = gsap.to(image, {
+      autoAlpha: 1,
+      ease: "none",
+      paused: true,
+      duration: 0.1,
+      onReverseComplete: stopFollow
+    });
+
+  el.addEventListener("mouseenter", (e) => {
+    firstEnter = true;
+    fade.play();
+    startFollow();
+    align(e);
+  });
+
+  el.addEventListener("mouseleave", () => fade.reverse());
+});
+</script>
